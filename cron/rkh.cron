@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+
+( /usr/bin/rkhunter --versioncheck
+  /usr/bin/rkhunter --update
+  /usr/bin/rkhunter --cronjob --report-warnings-only
+) | /bin/mail -s 'rkhunter Daily Run' root

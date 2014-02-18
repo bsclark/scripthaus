@@ -1,0 +1,9 @@
+POWERCFG -REQUESTSOVERRIDE PROCESS AmazonCloudDrive.exe Display System
+
+POWERCFG -REQUESTSOVERRIDE PROCESS bzbui.exe Display System
+
+POWERCFG -REQUESTSOVERRIDE PROCESS bionic.exe Display System
+
+POWERCFG -REQUESTSOVERRIDE PROCESS chrome.exe Display System
+
+POWERCFG -REQUESTSOVERRIDE PROCESS googledrivesync.exe Display System

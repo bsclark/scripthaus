@@ -1,0 +1,16 @@
+# cat /etc/logrotate.d/<app log>
+
+/var/log/sysmon {
+    nocompress
+    #dateext
+    maxage 365
+    rotate 15
+    missingok
+    notifempty
+    size +4096k
+    create 644 root root
+    sharedscripts
+    postrotate
+        /etc/init.d/syslog reload
+    endscript
+}

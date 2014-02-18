@@ -1,0 +1,55 @@
+# sudoers file.
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the sudoers man page for the details on how to write a sudoers file.
+#
+# Defaults specification
+Defaults       syslog=auth
+Defaults       log_year, logfile=/var/log/sudo.log
+                                                                                                          
+# Host alias specification
+                                                                                                          
+# User alias specification
+                                                                                                          
+# Cmnd alias specification
+Cmnd_Alias      KILL=/usr/bin/kill
+Cmnd_Alias      SHELLS=/usr/bin/bash, /usr/bin/csh, /usr/bin/ksh, /usr/bin/sh, /usr/bin/rsh, /usr/bin/tsh
+Cmnd_Alias      SU=/usr/bin/su
+Cmnd_Alias      SHUTDOWN=/usr/sbin/shutdown
+Cmnd_Alias      HALT=/usr/sbin/halt, /usr/sbin/fasthalt
+Cmnd_Alias      REBOOT=/usr/sbin/reboot, /usr/sbin/fastboot
+Cmnd_Alias      CDROM=/usr/sbin/mount /cdrom,/usr/sbin/umount /cdrom
+Cmnd_Alias      SMITTY=/usr/bin/smitty, /usr/bin/smit
+Cmnd_Alias      PASSWD=/usr/bin/passwd
+Cmnd_Alias      ROOT_CMDS=/usr/bin/mkuser, /usr/bin/chuser, /usr/sbin/mklv, /usr/sbin/chlv, \
+                          /usr/sbin/mkfs, /usr/sbin/chfs, /usr/sbin/mkvg, /usr/sbin/chvg, \
+			  /usr/bin/crontab			
+
+Cmnd_Alias      SAS_CMDS=/usr/bin/smitty users,/usr/bin/cat /etc/security/sudoers
+Cmnd_Alias      TSM_CMDS=/usr/lpp/adsmserv/bin/dsmfmt, /usr/tivoli/tsm/server/bin/rc.adsmserv, \
+                        /usr/tivoli/tsm, /usr/tivoli/tsm/server, /usr/tivoli/tsm/client, \
+                        /usr/tivoli/tsm/server/bin, /usr/lpp/adsm/bin, \
+	                /usr/tivoli/tsm/client/ba/bin/dsmadmc, \
+                        /usr/tivoli/client/ba/bin, /usr/tivoli/tsm/client/ba/bin/ie, /usr/bin/dsmc, \
+                        /usr/tivoli/tsm/client/ba/bin/dsmc
+Cmnd_Alias      TIVOLI=/etc/Tivoli/oserv.rc, \
+                       /opt/Tivoli/bin/aix4-r1/bin/, \
+                       /usr/bin/crontab -l, \
+                       /tivoli/bin/lcf_bundle/generic/lcfd.sh, \
+                       /tivoli/bin/aix4-r1/bin/wtrace, \
+                       /tivoli/bin/aix4-r1/bin/odstat
+#                       /usr/local/bin/tivcmd, \
+#                       /usr/local/bin/tivcmdnew, \
+#                       /usr/local/Tivoli/wserver -c /cdrom
+Cmnd_Alias      SYSLOG_RESTART=/sbin/service syslog restart
+Cmnd_Alias      FW_CMDS=/usr/bin/crontab -e
+Cmnd_Alias      GZIP=/bin/gzip, /bin/gunzip
+
+                                                                                                          
+# User privilege specification
+root      ALL=(ALL) ALL
+%sysadmin ALL=(ALL) ALL
+%sas      ALL=NOPASSWD:SAS_CMDS, PASSWD:ALL, !KILL, !SHELLS, !SU, !SHUTDOWN, !HALT, !REBOOT, !CDROM, !SMITTY, !PASSWD, !ROOT_CMDS
+%tsm      ALL=NOPASSWD:TSM_CMDS, PASSWD:ALL, !KILL, !SHELLS, !SU, !SHUTDOWN, !HALT, !REBOOT, !CDROM, !SMITTY, !PASSWD, !ROOT_CMDS
+%tivoli   ALL=NOPASSWD:TIVOLI, PASSWD:ALL, KILL, !SHELLS, !SHUTDOWN, !HALT, !REBOOT, !CDROM, !SMITTY, !ROOT_CMDS, !PASSWD

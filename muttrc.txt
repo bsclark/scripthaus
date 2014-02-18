@@ -1,0 +1,173 @@
+# Brent S. Clark's .muttrc Profile
+# Last Modified on  26-Oct-2001@1021
+# For examples and all the variables,
+# 	visit http://www.math.fu-berlin.de/~guckes/mutt/setup.html
+# I've 'cut-N-paste'ed from the site above and others, So thanks! 
+
+# ================================================
+# Aliases
+# ================================================
+alias aa "All" <all_@.com>
+
+
+# ================================================
+# Local config options ... The Who/When/Where's
+# ================================================
+# set alias_file=~/.mail_aliases                  # where I keep my aliases
+set delete=yes                                  # purge deleted messages w/o asking
+set autoedit                                    # goto editor right away when composing
+set help                                        # show help lines
+set copy=yes                                    # save copy in sent folder when sending mail
+set charset="iso-8859-1"                        # character set for the terminal
+set editor="vi"                                 # set editor for composing messages
+set include                                     # always include test when replying/forwarding
+set indent_string="> "                          # how to quote the replied message
+set move=no                                     # don't move messages from server - Just No!
+set reply_to                                    # always use reply-to if present
+set reverse_alias                               # attempt to reverse lookup my names for people
+set reverse_name                                # use my address as it appears in the message i am replying to
+set status_on_top                               # the status bar is on the top of the screen
+set sort_browser=reverse-date                   # how to sort the files in the dir browser
+set nosave_empty                                # remove files when there are no msgs left
+set visual=vi                                   # editor to run when the -v option is used in the builtin editor
+set write_inc=25                                # show progress while writing mailboxes
+auto_view application/x-gnuzip                  # mime type GUNZIP
+auto_view application/x-gzip                    # mime type GZIP
+auto_view text/html                             # mime type HTML
+unhdr_order *                                   # forget the previous settings
+hdr_order date from subject to cc               # header formatting
+set ispell="aspell check"                       # which spell program to use
+set hidden_host                                 # do not use a hostname in the address
+unset mark_old                                  # will not mark unread messages as read on logout
+set signature='~/.signature.html                # default signature file (see send-hook)
+alternative_order text/plain text/html		# Show the "text/plain" part *before* the "text/html" part
+
+# ================================================
+# Multi-liners, I put them here for readability and comments
+# ================================================
+# ----- Attribution like OutlookExpress/Hotmail + a little extra
+set attribution="----- Original Message -----\nFrom: \"%f\"\nDate: %[%a, %d %b, %Y %H:%M %Z]\nSubject: %s\n"
+
+# ========================================================================
+# AUTO_VIEW - tell mutt which "content types" to view with
+# the command given in the $HOME/.mailcap file. 
+# ========================================================================
+# auto_view text/html text/enriched application/x-gunzip \
+#           application/postscript image/gif application/x-tar-gz
+auto_view text/html
+
+# ================================================
+# Account and Server Info/Config - IMAP
+# ================================================
+set hostname='.com'                     # Appends the domain name to the servers mentioned
+set imap_user='<AD>\<username>\<username>'          # MS Exchange Account Name
+set imap_checkinterval=600                      # how often to check for new mail (in seconds)?
+set spoolfile={}INBOX            # MS Exchange Folder on Server
+set folder={}INBOX	# Set default folder views
+set imap_pass=''                        # MS Domian User Password
+# set imap_cechinterval
+# set imap_cramkey=""                           # IMAP CRAM-MD5 secret.
+# set imap_passive                              # don't open new IMAP to look for new mail when set.
+# unset imap_list_subscribed                    # do no display only subscribed folders.
+# set imap_home_namespace=""                    # IMAP path to your folders
+# set imap_preconnect=""                        # exec this command before establishing IMAP connect
+# set imap_servernoise                          # display warnings from IMAP server.
+
+# ===============================================
+# Mailbox checking
+# ===============================================
+mailboxes +INBOX\<OTHER DIR>			# Displays new mails in this folder also
+
+# ===============================================
+# IMAP SSL (only if compiled with --enable-ssl)
+# ===============================================
+# reset certifcate_file                         # SSL certificate file
+# reset entropy_file                            # random device
+# unset imap_force_ssl                          # always use SSL for connections to IMAP servers
+# set ssl_use_sslv2                             # use SSLv2 authentication?
+# set ssl_use_sslv3                             # use SSLv3 authentication?
+# set ssl_use_tlsv1                             # use TLSv1 authentication?
+
+# ===============================================
+# Personal headers - Just 'cause I can
+# ===============================================
+set hdrs                                        # set headers
+my_hdr X-Mailer: Mutt 1.2.5i-17 http://www.mutt.org             # nifty name for mutt for use in the header
+my_hdr From: "Brent S. Clark" <@.com>	# My new header
+my_hdr X-Operating-System: Linux/`uname -r` (`uname -m`)	# My new OS stream
+# my_hdr X-Crypto: GnuPG/1.0.4 http://www.gnupg.org
+# my_hdr X-GPG-Key: http://www.blackplasma.net/gpg-public-key.txt
+# my_hdr X-GPG-Fingerprint: EDB8 240A 2355 FD97 BA1C  4442 3192 E12C 1048 A2E9
+
+# ================================================
+# Customizer Stuff  ....... To make it look Pretty
+# ================================================
+set arrow_cursor                                # use -> instead of hiliting the whole line
+
+color hdrdefault red default
+color quoted brightblue default
+color signature red default
+color indicator brightyellow red
+color error brightred default
+color status yellow blue
+color tree magenta default                      # the thread tree in the index menu
+color tilde magenta default
+color message brightcyan default
+color markers brightcyan default
+color attachment brightmagenta default
+color search default green                      # how to hilite search patterns in the pager
+
+color header brightred default ^(From|Subject):
+color body magenta default "(ftp|http)://[^ ]+" # point out URLs
+color body magenta default [-a-z_0-9.]+@[-a-z_0-9.]+    # e-mail addresses
+color underline brightgreen default
+
+# ================================================
+# PGP Stuff
+# ================================================
+# set pgp_default_version=gpg                   # Default version of PGP to use
+# set pgp_gpg=/usr/local/bin/gpg                # Location of PGP binary
+# set pgp_replyencrypt                          # Encrypt repies of envrypted messages
+# set pgp_verify_sig=ask-yes                    # Verify that I want to encrypt before sending
+# set pgp_encryptself                           # ???
+# set pgp_timeout=1200                          # I don't want to have to type my passphrase too often
+# send-hook . unset pgp_autoencrypt             # Don't encrypt
+# send-hook . set pgp_autosign                  # Sign
+# send-hook . set abort_nosubject=ask-yes       # Abort if no subject
+# send-hook Majordomo@ unset pgp_autosign       # Majordomo doesn't care about signatures
+# send-hook Majordomo@ set abort_nosubject=no   # Majordomo doesn't care about subject lines
+# send-hook tim@cyberelk\.demon\.co\.uk set pgp_autoencrypt     # Send encrypted to this person
+# send-hook bandregg@redhat\.com set pgp_autoencrypt    # Send encryped to this person
+# pgp-hook email@fred\.bob\.com  44E96F28       # Use the 'email addr' key for this address
+# send-hook . 'set pgp_autosign'                # Person who doesn't want or can't handle a GPG signature
+# send-hook owirc 'set nopgp_autosign'          # Person who doesn't want or can't handle a GPG signature
+
+# ================================================
+# Misc Stuff (What I've seen other people do)
+# ================================================
+
+# -----Mail from people in my company (but not listed in the scores file)
+# -----should appear with a red background. ;-)
+# color index default red '(~f @redhat\.com) | (~f @redhat\.de)'
+
+# -----I'm interested in messages containing the word 'parport' in the body,
+# -----especially if they don't come from the linux-parport list (those are
+# -----the hard ones to spot).  So colour them green.  I love mutt. ;-)
+# color index brightgreen default '!(~B owner-linux-parport) ~b parport'
+
+# -----I want different people's text to appear in different colours.  So
+# -----the colour depends on the number of times it's been quoted..
+# color body blue default "^ *> *> *>.*" # quoted quoted quoted
+# color body red default "^ *> *>.*" # quoted quoted
+
+# -----Change email address depending on who you are sending to
+# send-hook . 'my_hdr From: Chris Gushue <chris@blackplasma.net>'
+# send-hook '~t ^owirc@owirc\.com' 'my_hdr From: Chris Gushue <seymour@owirc.com>'
+# send-hook '~t ^owirc-dev@owirc\.com' 'my_hdr From: Chris Gushue <seymour@owirc.com>'
+# send-hook '~t ^mutt-users@mutt\.org' 'my_hdr From: Chris Gushue <chris+mutt@blackplasma.net>'
+
+# -----In IMAP folders display KByte (because lines are not available):--- Can't actually make this work
+# folder-hook ^{ \
+#       'set index_format="%4C %Z %[!%d.%m.%y] %-15.15F (%?M?C%3M&%4c?) %s"'}
+
+# unset sig_dashes                               # No signature, so don't use sigdashes

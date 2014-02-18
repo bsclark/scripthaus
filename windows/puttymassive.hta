@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Putty Massive</title>
+
+<HTA:APPLICATION 
+     ID="objPuttyMassive"
+     APPLICATIONNAME="PuttyMassive"
+     SCROLL="no"
+     SINGLEINSTANCE="yes"
+     WINDOWSTATE="normal"
+>
+
+<!--requires apps, puttygen.exe, PuTTYCSv181u.exe, putty.exe-->
+
+<style type="text/css">
+    <!--
+    body{
+        font-family: arial, helvetica, sans-serif;
+        }
+    -->
+ </style>
+
+</head>
+
+<SCRIPT Language="VBScript">
+Sub Window_onLoad
+    window.resizeTo 300,430
+End Sub
+
+Sub RunScript
+  If (JumpServerNo.Value = "") Then
+     strText = ScriptArea.Value
+  Else
+     For intCount=0 to (JumpServerNo.Value -1)
+         If (intCount = JumpServerNo.Value -1) Then
+           strText = strText & JumpServerName.Value
+         Else
+           strText = strText & JumpServerName.Value & vbCrLf
+         End If
+     Next
+  End If
+
+  arrLines = Split(strText, vbCrLf)
+  For Each strLine in arrLines
+    Set objShell = CreateObject("Wscript.Shell")
+    objShell.Run """putty.exe""" & "-ssh " & strLine
+  Next
+   Set objShell = CreateObject("Wscript.Shell")
+   objShell.Run """PuTTYCSv181u.exe"""
+End Sub
+
+Sub ClearText
+   ScriptArea.Value = "" 
+   JumpServerNo.Value = ""
+End Sub
+
+Sub RunDirections
+  MsgBox "Cut-n-Paste a list of server names from Notepad or Excel and it will open a PUTTY session to each server." & vbCrLf & "It will aslo open PUTTY Command Sender after the server sessions." & vbCrLf & "OR, enter a Jumpsever name and the number of connections youd like to make to it"
+End Sub
+</SCRIPT>
+
+
+<body>
+
+<h1>PUTTY Massive</h1>
+<input type="button" value="Directions" onClick="RunDirections">
+<textarea name="ScriptArea" rows="15" cols="30"></textarea>
+
+<input type="text" name="JumpServerName" value="Hostname" size="15"> # of <input type="text" name="JumpServerNo" size="3"><br />
+
+<input id=runbutton  class="button" type="button" value="Open PUTTies" onClick="RunScript">&nbsp;
+<input type="button" value="Clear" onClick="ClearText">
+
+</body>
+</html>

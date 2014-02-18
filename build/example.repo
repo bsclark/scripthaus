@@ -1,0 +1,5 @@
+[base64]
+name=base64
+baseurl=http://<server addr>/centos/6.4/os64/
+enabled=1
+gpgcheck=0 

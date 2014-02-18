@@ -1,0 +1,21 @@
+## +------------- min (0 - 59)
+## |  +---------- hour (0 - 23)
+## |  |  +------- day of month (1 - 31)
+## |  |  |  +---- month (1 - 12)
+## |  |  |  |  +- day of week (0 - 6) (Sun=0)
+## |  |  |  |  |
+## -  -  -  -  - 
+## *  *  *  *  *  command to be executed
+##		  IF root's crontab, a username can be given before command to runas that user.
+
+
+#minute (0-59)
+#|   hour (0-23)
+#|   |    day of the month (1-31)
+#|   |    |   month of the year (1-12 or Jan-Dec)
+#|   |    |   |   day of the week (0-6 with 0=Sun or Sun-Sat)
+#|   |    |   |   |   command (if root, a username can be given before command to runas that user)
+#|   |    |   |   |   |	      [*/x = every x|range x-y|list 2,5,6]
+
+
+

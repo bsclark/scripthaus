@@ -1,0 +1,218 @@
+Provides the basic structure and event handlers needed to build a custom menu bar that looks very much like a standard Windows application's menu.  Examples are provided of some standard functions, with stubs for the code needed to provide the functionality.
+
+Install menu items by adding to the comma delimited string, sMenuItems, at the head of the script and add a comma delimited constant string that defines submenu items.  Finally add the code that accomplishes the named task to the Select Case in subroutine, SubMenuClick.
+
+Visual Basic
+<html> 
+<!-- An editable menu bar that looks like a standard Windows menu for use in an HTA --> 
+<head> 
+<title>Example Menu System</title> 
+<script language=vbs> 
+resizeto 640, 480 
+' Copyright 2010, Tom Lavedas, tlavedas at hotmail dot com 
+' Released for non-commercial use, only. 
+ 
+' Define menu items 
+Const sMenuItems = "File,Edit,Font,Help" 
+ 
+' Define one submenu constant for each menu item as illustrated below 
+' Each is a comma separated list in a single string 
+Const sFile = "Open,Close,Save,Save As ...,Exit" 
+Const sEdit = "Cut,Copy,Paste,Select All,Deselect All" 
+Const sFont = "Arial,Century Gothic,Times" 
+Const sHelp = "Help, About" 
+Const sHTML = "&nbsp;&nbsp;&nbsp;#sItem#&nbsp;&nbsp;&nbsp;" 
+ 
+Dim dMenus, sMenuOpen 
+ 
+sub Window_onload 
+Dim entry 
+ 
+  set dMenus = createObject("Scripting.Dictionary") 
+  for each entry in Split(sMenuItems, ",") 
+    menu.innerHTML = menu.innerHTML & "&nbsp;<span id=" & entry _ 
+                   & " style='padding-bottom:2px' onselectstart=cancelEvent>&nbsp;" _ 
+                   & entry & "&nbsp;</span>&nbsp;&nbsp;" 
+    dMenus.Add entry, Split(eval("s" & entry), ",") 
+  next 
+  sMenuOpen = "" 
+ 
+end sub 
+ 
+Sub menu_onmouseover 
+  
+  clearmenu 
+  with window.event.srcElement 
+    if .parentElement.ID = "menu" then 
+      .style.border = "thin outset" 
+      .style.cursor = "arrow" 
+    end if 
+  end with 
+ 
+end sub 
+ 
+Sub menu_onmouseout 
+ 
+  with window.event.srcElement 
+    .style.border = "none" 
+    .style.cursor = "default" 
+  end with ' srcElement 
+ 
+end sub 
+ 
+Sub dropmenu_onmouseover 
+  
+  with window.event 
+    .srcElement.style.cursor = "arrow" 
+    .cancelbubble = true 
+    .returnvalue = false 
+  end with 
+ 
+end sub 
+ 
+sub SubMenuOver 
+ 
+  with window.event.srcElement 
+    if .ID = "dropmenu" then exit sub 
+    .style.backgroundcolor = "darkblue" 
+    .style.color = "white" 
+    .style.cursor = "arrow" 
+  end with 
+ 
+end sub 
+ 
+sub SubMenuOut 
+ 
+  with window.event.srcElement 
+    .style.backgroundcolor = "lightgrey" 
+    .style.color = "black" 
+    .style.cursor = "default" 
+  end with 
+ 
+end sub 
+ 
+Sub menu_onclick 
+Dim oEL, oItem 
+ 
+  if sMenuOpen <> "" then exit sub 
+  with window.event.srcElement 
+    if .ID <> "menu" then 
+      .style.border = "thin inset" 
+      nLeft = .offsetLeft 
+      ntop  = .offsetTop + replace(menu.style.Height, "px", "") - 5 
+      sMenuOpen = trim(.innertext) 
+      with dropmenu 
+        with .style 
+          .border = "thin outset" 
+          .backgroundcolor = "lightgrey" 
+          .position = "absolute" 
+          .left = nLeft 
+          .top = nTop 
+          .width = "100px" 
+          .zIndex = "101" ' added 28 June 2010 
+        end with ' style 
+        for each sItem in dMenus.Item(sMenuOpen) 
+          set oEL = document.createElement("SPAN") 
+          .appendChild(oEL) 
+          with oEl 
+            .ID = sItem 
+            .style.height = "20px" 
+            .style.width = dropmenu.style.width 
+            .style.zIndex = "102" ' added 28 June 2010 
+            .innerHTML = Replace(sHTML, "#sItem#", trim(sItem)) 
+            set .onmouseover = getRef("SubMenuOver") 
+            set .onmouseout = getRef("SubMenuOut") 
+            set .onclick = getRef("SubMenuClick") 
+            set .onselectstart = getRef("cancelEvent") 
+          end with ' child node 
+          set oEL = document.createElement("BR") 
+          .appendChild(oEL) 
+        next 
+      end with ' dropmenu 
+    end if 
+  end with ' srcEement 
+ 
+end sub 
+ 
+sub cancelEvent 
+  window.event.returnValue = false 
+end sub ' cancelEvent 
+ 
+sub clearmenu 
+ 
+  dropmenu.innerHTML = "" 
+  dropmenu.style.border = "none" 
+  dropmenu.style.backgroundcolor = "transparent" 
+  if sMenuOpen <> "" then 
+    document.getElementByID(sMenuOpen).style.border = "none" 
+    sMenuOpen = "" 
+  end if 
+end sub 
+ 
+' ###################  IMPORTANT  ################### 
+' Code to accomplish each submenu item defined above 
+' Can be as simple as a subroutine call 
+' 
+Sub SubMenuClick 
+ 
+  sItem = trim(window.event.srcElement.innerText) 
+  clearmenu 
+  Select Case lcase(sItem) 
+    case "open" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "close" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "save" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "save as ..." 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "exit" 
+      window.close 
+    case "cut" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "copy" 
+    case "paste" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "select all" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "deselect all" 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+    case "arial" 
+      document.body.style.font = "12pt Arial" 
+    case "century gothic" 
+      document.body.style.font = "12pt Century Gothic" 
+    case "times" 
+      document.body.style.font = "11pt Times New Roman" 
+    case "help" 
+      msgbox "Help under construction", vbOKOnly + vbInformation, "Help" 
+    case "about" 
+      msgbox "Copyright, 2010" & vbCRLF & "Tom Lavedas"_ 
+              & vbCRLF & "Released for non-commercial use only",_ 
+              vbOKOnly + vbInformation, "About Menu" 
+    case else ' catch all for undefined menu items 
+      msgbox "Sorry, " & sItem & " is not implemented" 
+  end Select 
+ 
+end sub 
+ 
+</script> 
+</head> 
+<!-- 
+     Page layout follows 
+--> 
+<body onmouseover=menu_onmouseover style="font:12pt Arial"> 
+<div id=menu style="position:absolute;left:0;top:0;width:110%;height:23px; 
+                    padding-top:2px;background-color:lightgrey; 
+                    font:normal 9pt Microsoft Sans Serif;z-Index:100"> 
+</div> 
+<span id=dropmenu style="font:normal 9pt Microsoft Sans Serif"></span> 
+<br><br><br> 
+<center> 
+<b>Build-Your-Own Menu Example</b><br> 
+Copyright, 2010 Tom Lavedas<br> 
+For non-commercial use, only. 
+</center> 
+<span id=msg style="z-Index:10"></span> 
+</body> 
+</html>
+ 
