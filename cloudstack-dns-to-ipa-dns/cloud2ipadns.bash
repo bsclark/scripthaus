@@ -71,6 +71,9 @@ do
   echo $CLOUDDATA|xmlstarlet sel -T -t -m '///ipaddress' -v '.' -n > $FILETMP2
 done
 
+# Remove the name default from the list
+sed -i '/default/d' $FILETMP
+
 paste -d "," $FILETMP $FILETMP2 > $VMFILE
 
 for list in `cat $VMFILE`
@@ -87,10 +90,8 @@ do
   if [ "$VMIP" == $LOOKUP ]; then
     echo "NoNeedToAddIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
   elif [ $LOOKUP == "EMPTY" ]; then 
-    if [ $VMHOSTNAME != "default" ]; then
-      echo "AddIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
-      ipa dnsrecord-add $DNSDOMAIN $VMHOSTNAME --a-rec $VMIP --a-create-reverse
-    fi
+    echo "AddIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
+    ipa dnsrecord-add $DNSDOMAIN $VMHOSTNAME --a-rec $VMIP --a-create-reverse
   elif [ $VMIP != $LOOKUP ]; then
     echo "UpdateNeededForIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
     # The idea here is to find what DNS is currently set to, 
