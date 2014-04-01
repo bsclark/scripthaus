@@ -13,10 +13,9 @@
 #
 
 # ENV Vars
+_DEBUG="on"        # on/off
 BASE=/root/bin
 LOGS=$BASE/csdns-log
-FILETMP=$LOGS/vm-name.txt
-FILETMP2=$LOGS/ipaddress.txt
 VMFILE=$LOGS/vmfile.txt
 CLOUDAPISCRIPT=$BASE/get-api-cloudstack.bash
 ADMINUSERP=`cat $BASE/.dnsonly`
@@ -34,6 +33,10 @@ send_mail ()
   do
     echo $1 | mailx -s "ERROR Aquriring New/Updated DNS from Cloudstack" $USER
   done
+}
+
+function DEBUG() {
+  [ "$_DEBUG" == "on" ] &&  $@
 }
 
 [ $(whoami) != "root" ] && err "You must be root to run this script"
@@ -62,24 +65,30 @@ if [ $? -ne 0 ]; then
 fi
 
 {
-# Extract current list of vms and thier IPs
+rm -rf $LOGS/$VMFILE
+
+DEBUG echo "Extract current list of vms and thier IPs"
+
 DOMAINLIST=`$CLOUDAPISCRIPT command=listDomains listall=true`
 for DOMAIN in `echo $DOMAINLIST| sed -e 's/\<domain\>/\n/g' | grep id |cut -f 3 -d ">" |cut -f 1 -d "<"`
 do
-  CLOUDDATA=`$CLOUDAPISCRIPT command=listVirtualMachines domainid=$DOMAIN details=nics`
-  echo $CLOUDDATA|xmlstarlet sel -T -t -m '///name' -v '.' -n > $FILETMP
-  echo $CLOUDDATA|xmlstarlet sel -T -t -m '///ipaddress' -v '.' -n > $FILETMP2
+  DEBUG echo "Get list of VM hostnames"
+  DEBUG echo "domainid= $DOMAIN"
+
+  CLOUDDATA=`$CLOUDAPISCRIPT command=listVirtualMachines domainid=$DOMAIN details=nics|xmlstarlet sel -T -t -m '///name' -v '.' -n|grep -v default`
+  DEBUG echo "vmname= $CLOUDDATA"
+
+  for VMNAME in $CLOUDDATA
+    do
+    $CLOUDAPISCRIPT command=listVirtualMachines domainid=$DOMAIN name=$VMNAME details=nics|xmlstarlet sel -T -t -m '///ipaddress' -v '.' -n > $LOGS/$VMNAME
+    echo $VMNAME >> $LOGS/$VMFILE
+    done
 done
 
-# Remove the name default from the list
-sed -i '/default/d' $FILETMP
-
-paste -d "," $FILETMP $FILETMP2 > $VMFILE
-
-for list in `cat $VMFILE`
+for LIST in `cat $VMFILE`
 do
-  VMHOSTNAME=`echo $list|awk -F',' '{ print $1 }'`
-  VMIP=`echo $list|awk -F',' '{ print $2 }'`
+  VMHOSTNAME=$LIST
+  VMIP=`cat $LOGS/$LIST`
 
   LOOKUP=`host $VMHOSTNAME.$DNSDOMAIN $DNSSERVER|grep address|awk '{ print $4 }'`
 
@@ -90,8 +99,12 @@ do
   if [ "$VMIP" == $LOOKUP ]; then
     echo "NoNeedToAddIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
   elif [ $LOOKUP == "EMPTY" ]; then 
-    echo "AddIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
-    ipa dnsrecord-add $DNSDOMAIN $VMHOSTNAME --a-rec $VMIP --a-create-reverse
+      if [ ! -z "$VMHOSTNAME" ] && [ ! -z "$VMIP" ]; then
+        echo "AddIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
+        ipa dnsrecord-add $DNSDOMAIN $VMHOSTNAME --a-rec $VMIP --a-create-reverse
+      else
+        DEBUG echo "VM ($VMHOSTNAME) hostname and/or IP ($VMIP) variable is empty"
+      fi
   elif [ $VMIP != $LOOKUP ]; then
     echo "UpdateNeededForIt : $VMHOSTNAME.$DNSDOMAIN  $VMIP"
     # The idea here is to find what DNS is currently set to, 
@@ -123,4 +136,5 @@ done
 # http://stackoverflow.com/questions/8568925/get-any-string-between-2-string-and-assign-a-variable-in-bash
 # http://www.grymoire.com/Unix/Sed.html#uh-4
 # http://stackoverflow.com/questions/16394176/how-to-merge-two-files-consistently-line-by-line
+# http://www.cyberciti.biz/tips/debugging-shell-script.html
 #
