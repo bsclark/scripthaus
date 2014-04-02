@@ -20,7 +20,6 @@ CLOUDAPISCRIPT=$BASE/get-api-cloudstack.bash
 ADMINUSERP=`cat $BASE/.dnsonly`             # admin user password in file. chmod 600
 
 # Replace/Update with valid values
-DNSSERVER='<dns server>'
 DNSDOMAIN='<DNS Domain name>'
 EMAIL_USERS='<some email address>'
 ADMINUSER='<IPA user allowed to update, delete, add, query IPA DNS>'
