@@ -175,6 +175,7 @@ do
   elif [ "$LOOKUPREV" != "EMPTY" ] && [ "$LOOKUP" != "$LOOKUPREV" ]; then
     DEBUG echo "No Hostname and/or Reverse IP already exists"
     echo "CSDataWrongForIt2 : $VMHOSTNAME.$DNSDOMAIN  $VMIP doing nothing"
+    # Need to remove any wrong reverse IPs in dns if any
   else
     DEBUG echo "!!!!Something Broke!!!!!"
     DEBUG echo "VM is $VMHOSTNAME   IP is $VMIP  lookup is $LOOKUP    lookuprev is $LOOKUPREV"
