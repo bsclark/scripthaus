@@ -171,10 +171,10 @@ do
     ipa dnsrecord-add $DNSDOMAIN $VMHOSTNAME --a-rec $VMIP --a-create-reverse
   elif [ "$LOOKUP" != "EMPTY" ] && [ "$LOOKUP" != "$LOOKUPREV" ]; then
     DEBUG echo "....boom....."
-    echo "NoNameinCS-It : $VMHOSTNAME.$DNSDOMAIN  $VMIP doing nothing"
+    echo "CSDataWrongForIt1 : $VMHOSTNAME.$DNSDOMAIN  $VMIP doing nothing"
   elif [ "$LOOKUPREV" != "EMPTY" ] && [ "$LOOKUP" != "$LOOKUPREV" ]; then
-    DEBUG echo "....destoryed......"
-    echo "NoIPinCS-It : $VMHOSTNAME.$DNSDOMAIN  $VMIP doing nothing"
+    DEBUG echo "No Hostname and/or Reverse IP already exists"
+    echo "CSDataWrongForIt2 : $VMHOSTNAME.$DNSDOMAIN  $VMIP doing nothing"
   else
     DEBUG echo "!!!!Something Broke!!!!!"
     DEBUG echo "VM is $VMHOSTNAME   IP is $VMIP  lookup is $LOOKUP    lookuprev is $LOOKUPREV"
