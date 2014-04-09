@@ -13,9 +13,8 @@ RESOLV_EOF
 echo `ifconfig |grep "inet addr"|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'` `hostname --fqdn` `hostname|awk -F"." '{ print $1}'` >> /etc/hosts
 
 # base NTP config
-OSVER=`cat /etc/redhat-release`
-CentOS release 6.4 (Final)
-if [ $OSVER != "CentOS release 6.4 (Final)" ]; then
+OSVER=`cat /etc/redhat-release|awk '{ print $1 $3 }'`
+if [ $OSVER != "CentOS6.4" ]; then
   echo " " >> /etc/ntp.conf
   echo "server <some ntp server ip>" >> /etc/ntp.conf
 else
