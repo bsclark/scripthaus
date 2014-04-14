@@ -2,6 +2,8 @@
 #
 # From https://gist.github.com/keithseahus/6201354
 # Expanded on
+#
+# ln get-api-cloudstack.bash ./get-api-cloudstack-i.bash
  
 ADDRESS="http://cloudstack.manager.yourdomain.com:8069"
 API_KEY="<CS API Key for user>"
