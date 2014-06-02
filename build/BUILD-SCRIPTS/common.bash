@@ -2,6 +2,8 @@
 #
 # Stuff for every server
 
+BUILDMAILLIST=<some email to get notified of build status>
+
 # /etc/resolv.conf config
 cat > /etc/resolv.conf << RESOLV_EOF
 search <dns domainname>
@@ -39,5 +41,27 @@ sed -i 's/export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL/export PAT
 sed -i "s/\#relayhost = \$mydomain/relayhost = <mail relay server name>/g" /etc/postfix/main.cf
 service postfix restart
 
+HOSTNAME=`hostname -s`
+HOSTIP=`ifconfig |grep "inet addr"|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'`
+HOSTFILE=/usr/local/nagios/etc/objects/hosts/$HOSTNAME.cfg
+mailx -s "New Server $HOSTNAME Work Needed" $BUILDMAILLIST  << MAILMSGDOC
+Run the following on the Nagios server.
+
+HOSTNAME=$HOSTNAME
+HOSTIP=$HOSTIP
+HOSTFILE=$HOSTFILE
+
+cp /root/REPLACE-ME.cfg $HOSTFILE
+
+sed -i 's/REPLACE-ME/$HOSTNAME/g' $HOSTFILE
+sed -i 's/REPLACE-IP/$HOSTIP/g' $HOSTFILE
+
+service nagios restart
+
+MAILMSGDOC
+
 # Required for inital puppet run to work
 sed -i "s/ssldir = \$vardir\/ssl/ssldir = \$vardir\/ssl\n\n    pluginsync=true\n    factpath = \$vardir\/lib\/facter/" /etc/puppet/puppet.conf
+
+# Physical boxes should have cdpr installed automatically via kickstart. cisco discovery protocol
+
