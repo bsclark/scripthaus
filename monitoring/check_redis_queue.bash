@@ -1,5 +1,5 @@
 #!/bin/bash
-#
+# 
 # Check redis resque ques
 
 QUEUES="remote_query user_analytics analytics mailer"
@@ -13,7 +13,7 @@ function check_queue {
     RESPONSE="$RESPONSE|$2 OK"
     echo $RESPONSE
   else
-    RESPONSE="$RESPONSE|$2 threshold breached"
+    RESPONSE="$RESPONSE|$2 > $THRESH, Restart of resque is needed to resolve. (mt-rsq)"
     echo $RESPONSE
     exit 2
   fi
@@ -23,4 +23,3 @@ for qname in $QUEUES
 do
   check_queue $1 $qname
 done
-
