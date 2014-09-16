@@ -46,9 +46,9 @@ perl -pe's/([^-_.~A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg')
 url=${ADDRESS}${api_path}$(echo -n $@ | tr " " "&")"&"apikey=$API_KEY"&"signature=$signature
  
 if [ $USE_XMLLINT -eq 1 ] && [ `type xmllint > /dev/null; echo $?` -eq 0 ]; then
-  curl -k ${url} | xmllint --format -
+  curl --silent -k ${url} | xmllint --format -
 else
-  curl -k ${url}
+  curl --silent -k ${url}
 fi
  
 exit $?
