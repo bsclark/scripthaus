@@ -3,6 +3,7 @@
 # Stuff for every server
 
 BUILDMAILLIST=<some email to get notified of build status>
+REPOSREVER=<some hostname for local repo server>
 
 # /etc/resolv.conf config
 cat > /etc/resolv.conf << RESOLV_EOF
@@ -41,6 +42,10 @@ sed -i 's/export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL/export PAT
 sed -i "s/\#relayhost = \$mydomain/relayhost = <mail relay server name>/g" /etc/postfix/main.cf
 service postfix restart
 
+# collectd config
+wget http://$REPOSREVER/BUILD-SCRIPTS/collectd.bash -O - |bash
+
+# Email Team on New Server and Next Steps
 HOSTNAME=`hostname -s`
 HOSTIP=`ifconfig |grep "inet addr"|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'`
 HOSTFILE=/usr/local/nagios/etc/objects/hosts/$HOSTNAME.cfg
