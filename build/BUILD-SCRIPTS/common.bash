@@ -5,6 +5,9 @@
 BUILDMAILLIST=<some email to get notified of build status>
 REPOSREVER=<some hostname for local repo server>
 
+# Ensure some useful utils are installed
+yum -y install cdpr lshw sysstat vim-enhanced wget screen telnet unzip
+
 # /etc/resolv.conf config
 cat > /etc/resolv.conf << RESOLV_EOF
 search <dns domainname>
