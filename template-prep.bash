@@ -37,6 +37,10 @@ rm -vf \
 # Remove Root SSH files
 rm -vf /root/.ssh/*
 
+# set machine hostname to 'changeme'
+hostname changeme
+sed -i -e "s/^HOSTNAME=.*/HOSTNAME=changeme" /etc/sysconfig/network
+
 # Clean out /etc/hosts 
 echo "127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4" > /etc/hosts
 echo "::1         localhost localhost.localdomain localhost6 localhost6.locald" >> /etc/hosts
@@ -55,7 +59,11 @@ truncate -s 0 \
 # Uninstal IPA Client
 ipa-client-install --uninstall
 
+# Remove any CentOS External Repo files so not to clash with internal repo files
+rm -rf /etc/yum.repos.d/CentOS*.repo
 
+# Shutdown
+init 0
 
 #########################################
 # Sources/Cites:
