@@ -42,9 +42,9 @@ echo "%sysadmins     ALL=(ALL)      NOPASSWD: ALL" >>  /etc/sudoers
 echo "ipa-client-install --mkhomedir" >> /root/.bash_history
 
 # Add timestamp and history size for all users
-sed -i 's/HISTSIZE=1000/\nHISTSIZE=1000\nHISTFILESIZE=10000\nHISTTIMEFORMAT="%F %T "\n/g' /etc/profile
+sed -i 's/HISTSIZE=1000/\nHISTSIZE=1000\nHISTFILESIZE=10000\nHISTTIMEFORMAT="%F %T "\nHISTIGNORE="history:exit"\n/g' /etc/profile
 
-sed -i 's/export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL/export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL HISTTIMEFORMAT HISTFILESIZE/g' /etc/profile
+sed -i 's/export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL/export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL HISTTIMEFORMAT HISTFILESIZE HISTIGNORE/g' /etc/profile
 
 # postfix config
 sed -i "s/\#relayhost = \$mydomain/relayhost = <mail relay server name>/g" /etc/postfix/main.cf
