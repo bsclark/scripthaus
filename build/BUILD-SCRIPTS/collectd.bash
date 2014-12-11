@@ -53,5 +53,11 @@ LoadPlugin vmem
 </Plugin>
 COLLECTD_EOF
 
-chkconfig collectd on
-service collectd start
+if grep -q -i "release 7" /etc/redhat-release; then
+  /bin/systemctl enable collectd.service
+  /bin/systemctl start collectd.service
+else
+  service collectd start
+  chkconfig collectd on
+fi
+

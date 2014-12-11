@@ -4,6 +4,8 @@
 
 BUILDMAILLIST=<some email to get notified of build status>
 REPOSREVER=<some hostname for local repo server>
+NTPSERVER1=<some ntp hostname>
+NTPSERVER2=<some ntp hostname>
 
 # Ensure some useful utils are installed
 yum -y install cdpr lshw sysstat vim-enhanced wget screen telnet unzip
@@ -16,17 +18,20 @@ nameserver <dns server ip 2>
 RESOLV_EOF
 
 # /etc/hosts file cleanup
-echo `ifconfig |grep "inet addr"|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'` `hostname --fqdn` `hostname|awk -F"." '{ print $1}'` >> /etc/hosts
+if grep -q -i "release 7" /etc/redhat-release; then
+  echo "`ifconfig |grep "inet "|grep -v 127.0.0.1|awk '{ print $2}'`" "`hostname --fqdn`" "`hostname|awk -F"." '{ print $1}'`" >> /etc/hosts
+else
+  echo `ifconfig |grep "inet addr"|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'` `hostname --fqdn` `hostname|awk -F"." '{ print $1}'` >> /etc/hosts
+fi
 
 # base NTP config
-OSVER=`cat /etc/redhat-release|awk '{ print $1 $3 }'`
-if [ $OSVER != "CentOS6.4" ]; then
-  echo " " >> /etc/ntp.conf
-  echo "server <some ntp server ip>" >> /etc/ntp.conf
-else
-  sed -i 's/server 0.centos.pool.ntp.org/server <some ntp server ip>/g' /etc/ntp.conf
-  sed -i 's/server 1.centos.pool.ntp.org/server <some ntp server ip>/g' /etc/ntp.conf
+if grep -q -i "release 7" /etc/redhat-release || grep -q -i "release 6" /etc/redhat-release || grep -q -i "release 5" /etc/redhat-release; then
+  sed -i "s/server 0.centos.pool.ntp.org/server $NTPSERVER1/g" /etc/ntp.conf
+  sed -i "s/server 1.centos.pool.ntp.org/server $NTPSERVER2/g" /etc/ntp.conf
   sed -i 's/server [2-3].centos.pool.ntp.org//g' /etc/ntp.conf
+else
+  echo " " >> /etc/ntp.conf
+  echo "server $NTPSERVER1" >> /etc/ntp.conf
 fi
 
 # base sudoers config
@@ -50,7 +55,13 @@ wget http://$REPOSREVER/BUILD-SCRIPTS/collectd.bash -O - |bash
 
 # Email Team on New Server and Next Steps
 HOSTNAME=`hostname -s`
-HOSTIP=`ifconfig |grep "inet addr"|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'`
+
+if grep -q -i "release 7" /etc/redhat-release; then
+  HOSTIP=`ifconfig |grep "inet "|grep -v 127.0.0.1|awk '{ print $2}'`
+else
+  HOSTIP=`ifconfig |grep "inet "|grep -v 127.0.0.1|awk '{ print $2}'|awk -F":" '{ print $2 }'`
+fi
+
 HOSTFILE=/usr/local/nagios/etc/objects/hosts/$HOSTNAME.cfg
 mailx -s "New Server $HOSTNAME Work Needed" $BUILDMAILLIST  << MAILMSGDOC
 Run the following on the Nagios server.
