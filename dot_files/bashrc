@@ -1,0 +1,39 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+export GIT_SSL_NO_VERIFY=true
+
+HISTSIZE=5000
+HISTFILESIZE=10000
+HISTTIMEFORMAT="%F %T "
+HISTIGNORE="history:exit"
+
+export PS1="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]\\$ "
+
+## User specific aliases and functions
+# common commands
+alias fab="fab -f ~/fabric/fabfile.py"
+alias fabp="fab -f ~/fabric/fabfile.py -P"
+alias cdd="cd ~/Downloads"
+alias vi=vim
+
+alias cdmy="cd ~/GitPersonal/"
+alias cdmys="cd ~/GitPersonal/scripthaus;git pull"
+alias cdmyc="cd ~/GitPersonal/compinv;git pull"
+alias cdmyd="cd ~/GitPersonal/dochaus;git pull"
+
+# ssh key copy stuff
+# cat ~/.ssh/id_rsa.pub | ssh user@machine "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
+# ssh-copy-id user@machine
+
+#alias subversion="cd ~;svn co svn+ssh://svn/svn/<some path>/puppet"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
