@@ -8,7 +8,17 @@ NTPSERVER1=<some ntp hostname>
 NTPSERVER2=<some ntp hostname>
 
 # Ensure some useful utils are installed
-yum -y install cdpr lshw sysstat vim-enhanced wget screen telnet unzip
+yum -y install cdpr lshw sysstat vim-enhanced wget screen telnet unzip tmux
+
+# - cdpr - cisdo discovery protocol
+# - lshw - list hardware
+# - sysstat - sar, iostat
+# - vim-enhanced - nifty vim enhancements
+# - wget - useful http file transfer
+# - screen - session tool to allow process to continue after user logs off
+# - telnet - for testing ports
+# - unzip - for zip files
+# - tmux - screen like session opener, also allows for cli split screens
 
 # /etc/resolv.conf config
 cat > /etc/resolv.conf << RESOLV_EOF
