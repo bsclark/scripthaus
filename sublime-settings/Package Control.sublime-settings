@@ -1,0 +1,19 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Ansible",
+		"FileDiffs",
+		"Git",
+		"GitGutter",
+		"GitHub Flavored Markdown Preview",
+		"Github Tools",
+		"Package Control",
+		"SideBarEnhancements",
+		"SublimeLinter-json",
+		"Terminal",
+		"Theme - Centurion"
+	]
+}

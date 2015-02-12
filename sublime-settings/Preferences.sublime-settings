@@ -1,0 +1,9 @@
+{
+	"centurion_color_orange": true,
+	"font_size": 12,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "Centurion.sublime-theme"
+}
