@@ -1,0 +1,2 @@
+# Run this, can also be set at a system level via /etc/gitconfig
+git config --global url."https://github".insteadOf git://github
