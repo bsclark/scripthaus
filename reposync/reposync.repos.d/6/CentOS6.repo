@@ -1,0 +1,55 @@
+[os]
+name=CentOS 6 - Base
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=os
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[updates]
+name=CentOS 6 - Updates
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=updates
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[scl]
+name=CentOS 6 - SCL
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=SCL
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[extras]
+name=CentOS 6 - Extras
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=extras
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[contrib]
+name=CentOS 6 - Contrib
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=contrib
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[centosplus]
+name=CentOS 6 - Plus
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=centosplus
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[fasttrack]
+name=CentOS 6 Fasttrack
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=fasttrack
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[cr]
+name=CentOS 6 CR
+mirrorlist=http://mirrorlist.centos.org/?release=6&arch=x86_64&repo=cr
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6

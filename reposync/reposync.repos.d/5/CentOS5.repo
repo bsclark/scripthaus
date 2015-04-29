@@ -1,0 +1,49 @@
+[os]
+name=CentOS 5 - Base
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=os
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+
+[updates]
+name=CentOS 5 - Updates
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=updates
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+
+[extras]
+name=CentOS 5 - Extras
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=extras
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+
+[contrib]
+name=CentOS 5 - Contrib
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=contrib
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+
+[centosplus]
+name=CentOS 5 - Plus
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=centosplus
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+
+[fasttack]
+name=CentOS 5 Fasttrack
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=fasttack
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+
+[cr]
+name=CentOS 5 CR
+mirrorlist=http://mirrorlist.centos.org/?release=5&arch=x86_64&repo=cr
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-5
+

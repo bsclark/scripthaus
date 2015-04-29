@@ -48,8 +48,8 @@ enabled=0
 gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
 
 [cloudstack]
-name=Cloudstack 4.0
-baseurl=http://cloudstack.apt-get.eu/rhel/4.0
+name=Cloudstack 4.2
+baseurl=http://cloudstack.apt-get.eu/rhel/4.2
 enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/cloudstack.apt-get.eu_release.asc
@@ -75,3 +75,57 @@ enabled=0
 gpgcheck=1
 gpgkey=http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub
 
+[pgdg91]
+name=PostgreSQL 9.1 CentOS 6
+baseurl=http://yum.postgresql.org/9.1/redhat/rhel-6Server-x86_64/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+
+[pgdg93]
+name=PostgreSQL 9.3 $releasever - $basearch
+baseurl=http://yum.postgresql.org/9.3/redhat/rhel-$releasever-$basearch
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+
+[cloudera]
+name=Cloudera Hadoop
+baseurl=http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/4.6.0/
+enabled=0
+gpgcheck=1
+gpgkey=http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
+
+[cloudera-manager]
+name=Cloudera Hadoop 
+baseurl=http://archive.cloudera.com/cm4/redhat/6/x86_64/cm/4.8.2/
+enabled=0
+gpgcheck=1
+gpgkey=http://archive.cloudera.com/cdh4/redhat/6/x86_64/cdh/RPM-GPG-KEY-cloudera
+
+[cloudera-impala]
+name=Cloudera Impala
+baseurl=http://archive-primary.cloudera.com/impala/redhat/6/x86_64/impala/1.2.4/
+enabled=0
+gpgcheck=1
+gpgkey=http://archive-primary.cloudera.com/impala/redhat/6/x86_64/impala/RPM-GPG-KEY-cloudera
+
+[pdagent]
+name=PDAgent
+baseurl=http://packages.pagerduty.com/pdagent/rpm
+enabled=0
+gpgcheck=1
+gpgkey=http://packages.pagerduty.com/GPG-KEY-RPM-pagerduty
+
+[spp]
+name=Service Pack for ProLiant
+baseurl=http://downloads.linux.hp.com/repo/spp/rhel/6.4/x86_64/current
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/GPG-KEY-ServicePackforProLiant
+
+[newrelic]
+name=NewRelic Linux Agent
+baseurl=http://download.newrelic.com/pub/newrelic/el5/x86_64/
+enabled=0
+gpgcheck=0

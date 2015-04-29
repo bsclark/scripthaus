@@ -1,0 +1,13 @@
+[epel6-32bit]
+name=EPEL 6 32bit
+baseurl=http://dl.fedoraproject.org/pub/epel/6/i386/
+gpgcheck=1
+enabled=0
+gpgkey=http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+
+[vmtools6-32bit]
+name=VMWare Tools RHEL 6 32bit
+baseurl=http://packages.vmware.com/tools/esx/5.1latest/rhel6/i386/
+enabled=0
+gpgcheck=1
+gpgkey=http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub

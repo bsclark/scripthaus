@@ -1,0 +1,13 @@
+[os65-32]
+name=CentOS 6.5 32bit - Base
+mirrorlist=http://mirrorlist.centos.org/?release=6.5&arch=i386&repo=os
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6
+
+[updates65-32]
+name=CentOS 6.5 32bit - Updates
+mirrorlist=http://mirrorlist.centos.org/?release=6.5&arch=i386&repo=updates
+gpgcheck=1
+enabled=0
+gpgkey=http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-6

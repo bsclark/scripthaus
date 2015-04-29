@@ -1,0 +1,48 @@
+[epel7]
+name=EPEL 7 x86_64
+baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+gpgcheck=1
+enabled=0
+gpgkey=http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+
+[vmtools7]
+name=VMWare Tools RHEL 7
+baseurl=http://packages.vmware.com/packages/rhel7/x86_64/
+enabled=0
+gpgcheck=1
+gpgkey=http://packages.vmware.com/tools/keys/VMWARE-PACKAGING-GPG-RSA-KEY.pub
+
+[spp]
+name=Service Pack for ProLiant
+baseurl=http://downloads.linux.hp.com/repo/spp/rhel/7/x86_64/current
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/GPG-KEY-ServicePackforProLiant
+
+[postgresql93]
+name=PostgreSQL 9.3
+baseurl=http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
+
+[mesos]
+name=Mesos
+baseurl=http://repos.mesosphere.io/el/7/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mesosphere
+
+[mesos-noarch]
+name=Mesos noarch
+baseurl=http://repos.mesosphere.io/el/7/noarch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mesosphere
+
+[mesos-source]
+name=Mesos Source
+baseurl=http://repos.mesosphere.io/el/7/SRPMS/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mesosphere
