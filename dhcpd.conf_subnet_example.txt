@@ -1,0 +1,27 @@
+subnet 10.100.41.0 netmask 255.255.255.0 {
+        option routers          10.100.41.1;
+        option subnet-mask      255.255.255.0;
+        option domain-name      "<domain name";
+        option domain-name-servers <dns server1>, <dns server2>;
+
+        default-lease-time      21600;
+        max-lease-time          43200;
+
+# <subnet name> - vlan #
+
+group {
+  next-server <ip of bootp/pxe server>;
+  filename "pxelinux.0";
+
+
+# DO NOT USE 10.100.41.xxx, somehostname
+
+#host .tni01.com {
+#  hardware ethernet ;
+#  fixed-address 10.100.41.;
+#  }
+
+}
+}
+
+
