@@ -18,6 +18,10 @@ HISTIGNORE="history:exit"
 
 export PS1="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]\\$ "
 
+# Will show in your prompt if your in a screen/tmux session or not. :)
+if [ -n "$STY" ]; then export PS1="(screen) $PS1"; fi
+if [ -n "$TMUX" ]; then export PS1="(tmux) $PS1"; fi
+
 ## User specific aliases and functions
 # common commands
 alias fab="fab -f ~/fabric/fabfile.py"
