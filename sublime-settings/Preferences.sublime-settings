@@ -5,5 +5,7 @@
 	[
 		"Vintage"
 	],
-	"theme": "Centurion.sublime-theme"
+	"theme": "Centurion.sublime-theme",
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true
 }
