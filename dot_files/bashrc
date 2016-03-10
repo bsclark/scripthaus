@@ -16,11 +16,14 @@ HISTFILESIZE=10000
 HISTTIMEFORMAT="%F %T "
 HISTIGNORE="history:exit"
 
-export PS1="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]\\$ "
+#export PS1="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]\\$ "
 
-# Will show in your prompt if your in a screen/tmux session or not. :)
-if [ -n "$STY" ]; then export PS1="(screen) $PS1"; fi
-if [ -n "$TMUX" ]; then export PS1="(tmux) $PS1"; fi
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# for git bash prompt
+GIT_PROMPT_THEME=Single_line
+GIT_PROMPT_START="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]"
+#GIT_PROMPT_END=""
 
 ## User specific aliases and functions
 # common commands
@@ -28,16 +31,38 @@ alias fab="fab -f ~/fabric/fabfile.py"
 alias fabp="fab -f ~/fabric/fabfile.py -P"
 alias cdd="cd ~/Downloads"
 alias vi=vim
+alias ls="ls -G"
+
+alias cda="cd ~/GitWork/ansible-playbooks;git status"
+alias cdg="cd ~/GitWork/"
+alias cdt="cd ~/GitWork/techops-scripts;git status"
 
 alias cdmy="cd ~/GitPersonal/"
 alias cdmys="cd ~/GitPersonal/scripthaus;git pull"
 alias cdmyc="cd ~/GitPersonal/compinv;git pull"
 alias cdmyd="cd ~/GitPersonal/dochaus;git pull"
 
+alias bkl="bundle exec kitchen list"
+alias bkc="bundle exec kitchen converge"
+alias bkd="bundle exec kitchen destroy"
+alias sshl="ssh vagrant@localhost -p 2222"
+
+alias ssht="ssh -i ~/.ssh/techops.pem centos@"
+
+# EC2
+alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/techops.pem centos@<ec2 ip>'"
+
+#MAC-isms
+alias cleardns="dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+
+# ================
+# Not Used / Notes
+# ================
+# Fedora, Gnome desktop icon location
+# sudo vi /usr/local/share/applications/rdesktop.desktop
+
 # ssh key copy stuff
 # cat ~/.ssh/id_rsa.pub | ssh user@machine "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"
 # ssh-copy-id user@machine
 
-#alias subversion="cd ~;svn co svn+ssh://svn/svn/<some path>/puppet"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#alias vc="rdesktop <ip> -z -T 'VC - <ip>' -d <win domain> -u <user> -g 1024x768 &"
