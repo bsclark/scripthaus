@@ -220,3 +220,7 @@ echo "use cmd= adduser -g sysadmin -c '<company name>,<user full name>,<user ema
 echo " "
 echo "Change system name and IP if needed"
 echo "Add Nagios Server ent
+
+
+# Example sed with backticks for shell command output
+# sed -i 's/localhost/'`hostname`'/g' /etc/somefile.conf
