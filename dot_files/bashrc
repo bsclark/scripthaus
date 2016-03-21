@@ -25,6 +25,10 @@ GIT_PROMPT_THEME=Single_line
 GIT_PROMPT_START="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]"
 #GIT_PROMPT_END=""
 
+# Functions
+function ssht_fn(){ ssh -i ~/.ssh/centos.pem centos@"$@"; }
+alias ssht=ssht_fn;
+
 ## User specific aliases and functions
 # common commands
 alias fab="fab -f ~/fabric/fabfile.py"
@@ -46,8 +50,6 @@ alias bkl="bundle exec kitchen list"
 alias bkc="bundle exec kitchen converge"
 alias bkd="bundle exec kitchen destroy"
 alias sshl="ssh vagrant@localhost -p 2222"
-
-alias ssht="ssh -i ~/.ssh/techops.pem centos@"
 
 # EC2
 alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/techops.pem centos@<ec2 ip>'"
