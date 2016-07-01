@@ -26,8 +26,11 @@ GIT_PROMPT_START="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\
 #GIT_PROMPT_END=""
 
 # Functions
-function ssht_fn(){ ssh -i ~/.ssh/centos.pem centos@"$@"; }
-alias ssht=ssht_fn;
+function ssht_fn(){ ssh -i ~/.ssh/somekey.pem centos@"$@"; }
+function dsrm_fn(){ docker stop "$@";docker rm "$@"; }
+
+# will determine if there are any valid kerberos tickets and if not, run kinit
+#/Users/bclark/bin/need_to_kinit.bash
 
 ## User specific aliases and functions
 # common commands
@@ -37,9 +40,7 @@ alias cdd="cd ~/Downloads"
 alias vi=vim
 alias ls="ls -G"
 
-alias cda="cd ~/GitWork/ansible-playbooks;git status"
-alias cdg="cd ~/GitWork/"
-alias cdt="cd ~/GitWork/techops-scripts;git status"
+alias myip="curl ifconfig.co"
 
 alias cdmy="cd ~/GitPersonal/"
 alias cdmys="cd ~/GitPersonal/scripthaus;git pull"
@@ -50,12 +51,26 @@ alias bkl="bundle exec kitchen list"
 alias bkc="bundle exec kitchen converge"
 alias bkd="bundle exec kitchen destroy"
 alias sshl="ssh vagrant@localhost -p 2222"
+alias sshl2="ssh vagrant@localhost -p 2200"
+alias asetup1="ansible localhost:2222 -m setup -i ~/brent.inv --extra-vars "ansible_ssh_user=vagrant" -vvvv -k"
+alias asetup2="ansible localhost:2200 -m setup -i ~/brent.inv --extra-vars "ansible_ssh_user=vagrant" -vvvv -k"
+
+alias ssh="ssh -K"
+alias ssht=ssht_fn;
+
+# Docker 
+alias dsrm=dsrm_fn;
+alias dps="docker ps -a"
+alias dim="docker images"
 
 # EC2
-alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/techops.pem centos@<ec2 ip>'"
+alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/<somekey>`.pem centos@<ec2 ip>'"
 
 #MAC-isms
 alias cleardns="dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+
+# ssh tunnel example
+alias sshtunnel="ssh -f user@personal-server.com -L <localport>:personal-server.com:<remoteport> -N"
 
 # ================
 # Not Used / Notes
@@ -68,3 +83,7 @@ alias cleardns="dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 # ssh-copy-id user@machine
 
 #alias vc="rdesktop <ip> -z -T 'VC - <ip>' -d <win domain> -u <user> -g 1024x768 &"
+
+# Ever edit a file as a normal user that is owned by root. This vim command will allow you to overwrite it with using root perms.
+# :w !sudo tee %
+
