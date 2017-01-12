@@ -15,10 +15,32 @@ HISTSIZE=5000
 HISTFILESIZE=10000
 HISTTIMEFORMAT="%F %T "
 HISTIGNORE="history:exit"
+HISTCONTROL=ignoreboth:erasedups
 
 #export PS1="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]\\$ "
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#export PATH="$PATH:/usr/local/opt/go/libexec/bin" # Add path for Go installed via Brew
+#export PATH="$PATH:$HOME/gocode/bin"  # add path for gron, installed via 'go get'
+export PATH="$PATH:$HOME/.rvm/bin:/usr/local/opt/go/libexec/bin:$HOME/gocode/bin"  # compund export
+
+# AWS CLI autocomplete   http://docs.aws.amazon.com/cli/latest/userguide/cli-command-completion.html
+complete -C '/usr/local/bin/aws_completer' aws
+
+# pyenv stuff
+export PYENV_ROOT=/usr/local/var/pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+# this fixes and issue that came up when I upgraded to 2.7.13 and python had problems finding the correct pip packages.
+export PYTHONPATH="/usr/local/var/pyenv/versions/2.7.13/lib/python2.7/site-packages:/usr/local/lib/python2.7/site-packages"
+
+# Vars for GO language
+export GOPATH=~/gocode
+
+# For ansible dynamic inventory
+export EC2_INI_PATH=/Users/bclark/.aws/ec2.ini
+#export ANSIBLE_HOSTS=/Users/bclark/GitWork/ansible-playbooks/inventory/ec2.py
+
 
 # for git bash prompt
 GIT_PROMPT_THEME=Single_line
@@ -66,6 +88,9 @@ alias dim="docker images"
 # EC2
 alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/<somekey>`.pem centos@<ec2 ip>'"
 
+# gron (make json grepable tool)
+alias ungron="gron --ungron"
+
 #MAC-isms
 alias cleardns="dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
@@ -87,3 +112,5 @@ alias sshtunnel="ssh -f user@personal-server.com -L <localport>:personal-server.
 # Ever edit a file as a normal user that is owned by root. This vim command will allow you to overwrite it with using root perms.
 # :w !sudo tee %
 
+# example ansible ad-hoc command using dynamic ec2 inventory tags
+# export ANSIBLE_HOST_KEY_CHECKING=False;ansible tag_env_dev -i <path to>/ec2.py -u <user> --private-key <location of ssh private key for user> -a "<command>"
