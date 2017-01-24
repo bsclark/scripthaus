@@ -114,3 +114,8 @@ alias sshtunnel="ssh -f user@personal-server.com -L <localport>:personal-server.
 
 # example ansible ad-hoc command using dynamic ec2 inventory tags
 # export ANSIBLE_HOST_KEY_CHECKING=False;ansible tag_env_dev -i <path to>/ec2.py -u <user> --private-key <location of ssh private key for user> -a "<command>"
+
+## example ansible playbook command using ec2.py and ec2 tags
+# ansible-playbook playbook_to_use.yml -vvvv -i ./inventory/ec2.py --private-key </path/to/ssh.pem> --extra-vars "hosts_group=tag_tagname_tagvalue:&tag_tag_name_tag_value"   # assumes hosts_group is the variable used for hosts:
+## to limit further you can append
+# --limit 192.168.0.110   # IP is what is the search key returned form the ec2.py script.
