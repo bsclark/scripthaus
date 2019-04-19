@@ -1,19 +1,29 @@
 {
-	"in_process_packages":
-	[
-	],
-	"installed_packages":
-	[
-		"Ansible",
-		"FileDiffs",
-		"Git",
-		"GitGutter",
-		"GitHub Flavored Markdown Preview",
-		"Github Tools",
-		"Package Control",
-		"SideBarEnhancements",
-		"SublimeLinter-json",
-		"Terminal",
-		"Theme - Centurion"
-	]
+        "bootstrapped": true,
+        "in_process_packages":
+        [
+        ],
+        "installed_packages":
+        [
+                "Ansible",
+                "Ansible Vault",
+                "AnsibleSnippets",
+                "Dockerfile Syntax Highlighting",
+                "FileDiffs",
+                "Git",
+                "GitGutter",
+                "GitHub Flavored Markdown Preview",
+                "Github Tools",
+                "MarkdownPreview",
+                "Package Control",
+                "SideBarEnhancements",
+                "ST_AWK",
+                "SublimeLinter",
+                "SublimeLinter-contrib-ansible-lint",
+                "SublimeLinter-json",
+                "SublimeLinter-pylint",
+                "SublimeLinter-shellcheck",
+                "Terminal",
+                "Theme - Centurion"
+        ]
 }
