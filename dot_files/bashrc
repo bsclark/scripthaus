@@ -41,15 +41,25 @@ export GOPATH=~/gocode
 export EC2_INI_PATH=/Users/bclark/.aws/ec2.ini
 #export ANSIBLE_HOSTS=/Users/bclark/GitWork/ansible-playbooks/inventory/ec2.py
 
-
 # for git bash prompt
 GIT_PROMPT_THEME=Single_line
 GIT_PROMPT_START="[\[\e[33m\]\u\[\e[m\]@\[\e[34m\]\h\[\e[m\] \[\e[32m\]\W\[\e[m\]]"
 #GIT_PROMPT_END=""
 
+# For ansible dynamic inventory
+export EC2_INI_PATH=/Users/bclark/.aws/ec2.ini
+#export ANSIBLE_HOSTS=/Users/bclark/GitWork/ansible-playbooks/inventory/ec2.py
+export ANSIBLE_HOST_KEY_CHECKING=False
+
 # Functions
 function ssht_fn(){ ssh -i ~/.ssh/somekey.pem centos@"$@"; }
 function dsrm_fn(){ docker stop "$@";docker rm "$@"; }
+
+# making vimpager the new less
+# mac install == brew install vimpager
+export PAGER=/usr/local/bin/vimpager
+alias less=$PAGER
+alias zless=$PAGER
 
 # will determine if there are any valid kerberos tickets and if not, run kinit
 #/Users/bclark/bin/need_to_kinit.bash
@@ -119,3 +129,18 @@ alias sshtunnel="ssh -f user@personal-server.com -L <localport>:personal-server.
 # ansible-playbook playbook_to_use.yml -vvvv -i ./inventory/ec2.py --private-key </path/to/ssh.pem> --extra-vars "hosts_group=tag_tagname_tagvalue:&tag_tag_name_tag_value"   # assumes hosts_group is the variable used for hosts:
 ## to limit further you can append
 # --limit 192.168.0.110   # IP is what is the search key returned form the ec2.py script.
+
+## SED to determine if the line starts with a certin string and if so, join it with the last line replacing the newline character with a tab character. This is cool!!!!
+# EX data file
+#-----
+#10.200.37.174
+#3.10.0-327.36.3.el7.x86_64
+#10.200.37.245
+#3.10.0-327.36.3.el7.x86_64
+#10.200.37.196
+#3.10.0-229.20.1.el7.x86_64
+#
+#sed '$!N;s/\n3.10/      3.10/;P;D' filename.txt
+#
+# output looks like
+#10.200.37.174	3.10.0-327.36.3.el7.x86_64
