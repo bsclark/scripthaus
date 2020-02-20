@@ -1,2 +1,28 @@
 Host *+*
 ProxyCommand ssh $(echo %h | sed 's/+[^+]*$//;s/\([^+%%]*\)%%\([^+]*\)$/\2 -l \1/;s/:/ -p /') nc -w1 $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
+
+# MAC OS
+Host *
+  UseKeychain no
+  AddKeysToAgent no
+
+Host *
+  XAuthLocation /opt/X11/bin/xauth
+  ServerAliveInterval 60
+  ForwardX11Timeout 596h
+
+Host jumphost
+  User username
+  Hostname jumphost.somedomain.com
+
+Host hosta
+  User username
+  Hostname hosta.somedomain.com
+  port 22
+  ProxyCommand ssh -q -W %h:%p jumphost.somedomain.com
+
+Host hostb
+  User username
+  Hostname hostb.somedomain.com
+  port 22
+  ProxyCommand ssh -q -W %h:%p jumphost.somedomain.com
