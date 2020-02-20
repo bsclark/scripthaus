@@ -144,3 +144,9 @@ alias sshtunnel="ssh -f user@personal-server.com -L <localport>:personal-server.
 #
 # output looks like
 #10.200.37.174	3.10.0-327.36.3.el7.x86_64
+
+# https://superuser.com/questions/276533/scp-files-via-intermediate-host
+# http://mperdikeas.github.io/networking.html.files/scp-a-file-through-jump-host.html
+# A (client) --> B (jumphost) --> C (destination)
+# scp -oProxyCommand="ssh -W %h:%p some-middle-server" thefile some-destination-server:destination_file_name_if_any
+
