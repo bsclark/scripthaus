@@ -23,7 +23,7 @@
 
 # Default vars
 _DEBUG="off"        # on/off
-CMDS="aws openssl"  # list of commands that are required to run this script
+CMDS="aws jq"  # list of commands that are required to run this script
 INI_FILE=~/.aws-create-user.ini
 
 
@@ -118,7 +118,8 @@ function CREATE_USER() {
   UN="$1"
 
   # Generate random password
-  USER_PASSWORD=`openssl rand -base64 14`  
+  DEBUG "  aws secretsmanager get-random-password --password-length 14 --profile ${aws_profile_to_use}|jq -r '.RandomPassword' "
+  user_password=$( aws secretsmanager get-random-password --password-length 14 --profile ${aws_profile_to_use}|jq -r '.RandomPassword' )
 
   if [ "$_DEBUG" == "on" ]; then
     DEBUG "  aws iam create-user --user-name ${UN} --profile ${aws_profile_to_use}"
