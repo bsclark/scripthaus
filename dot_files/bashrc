@@ -96,7 +96,7 @@ alias dps="docker ps -a"
 alias dim="docker images"
 
 # EC2
-alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/<somekey>`.pem centos@<ec2 ip>'"
+alias sshec2="echo 'ssh -i ~/.ssh/coreos core@<ec2 ip>';echo 'ssh -i ~/.ssh/<somekey>.pem centos@<ec2 ip>'"
 
 # gron (make json grepable tool)
 alias ungron="gron --ungron"
