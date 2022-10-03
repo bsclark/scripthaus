@@ -2,3 +2,6 @@ Place these settings files in the following path
 
 MAC OS
 /Users/<username>/Library/Application Support/Sublime Text 3/Packages/User
+
+Steam Deck - Arch Linux - non-flatpak
+/home/deck/.config/sublime-text/Packages/User
