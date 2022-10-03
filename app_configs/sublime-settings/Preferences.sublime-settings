@@ -1,7 +1,7 @@
 {
         "centurion_color_orange": true,
-        "color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
-        "font_size": 23,
+        "color_scheme": "Monokai.sublime-color-scheme",
+        "font_size": 10,
         "ignore_vcs_packages": true,
         "ignored_packages":
         [
