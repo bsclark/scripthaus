@@ -28,6 +28,15 @@ Categories=TextEditor;Development;Utility;
 
 MimeType=text/plain;
 
+Actions=NewWindow;
+
+[Desktop Action NewWindow]
+Name=Open a New Window
+Icon=window-new
+Exec=/opt/sublime_text/sublime_text --new-window
+
+
+
 ## Arch/SteamDeck
 # desktop-file-validate  ~/.local/share/applications/SublimeText.desktop
 # update-desktop-database ~/.local/share/applications
