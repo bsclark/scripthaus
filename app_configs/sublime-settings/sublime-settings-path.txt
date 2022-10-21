@@ -5,3 +5,4 @@ MAC OS
 
 Steam Deck - Arch Linux - non-flatpak
 /home/deck/.config/sublime-text/Packages/User
+/home/deck/.local/share/applications/SublimeText.desktop
