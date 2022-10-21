@@ -10,4 +10,8 @@
         "tab_size": 2,
         "theme": "Centurion.sublime-theme",
         "translate_tabs_to_spaces": true
+        // This setting is needed for MacOS and Linux to close Sublime when there are not any open files
+        "close_windows_when_empty": true,
+        // This setting is needed for the one above to work correctly on Linux
+        "hot_exit": false        
 }
